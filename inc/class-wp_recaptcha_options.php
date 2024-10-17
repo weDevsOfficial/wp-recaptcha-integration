@@ -388,8 +388,8 @@ class WP_reCaptcha_Options {
 				$init_test_url = add_query_arg( array('_wpnonce' => $nonce , 'action' => $action ) , admin_url( 'admin-ajax.php' ) );
 
 				?><p class="submit"><?php
-					?><a class="button" href="<?php echo $new_url ?>"><?php _e('New API Key' , 'wp-recaptcha-integration') ?></a><?php
-					?><a id="test-api-key" class="button" data-init-href="<?php echo $init_test_url ?>" href="<?php echo $test_url ?>"><?php _e('Test API Key' , 'wp-recaptcha-integration') ?></a><?php
+					?><a class="button" href="<?php echo esc_url( $new_url ); ?>"><?php _e('New API Key' , 'wp-recaptcha-integration') ?></a><?php
+					?><a id="test-api-key" class="button" data-init-href="<?php echo esc_url( $init_test_url ) ?>" href="<?php echo esc_url( $test_url ) ?>"><?php _e('Test API Key' , 'wp-recaptcha-integration') ?></a><?php
 				?></p><?php
 			?></div><?php
 		}
