@@ -35,8 +35,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="password" class="input-text" name="password_2" id="password_2" />
 		</p>
 
-		<input type="hidden" name="reset_key" value="<?php echo isset( $args['key'] ) ? $args['key'] : ''; ?>" />
-		<input type="hidden" name="reset_login" value="<?php echo isset( $args['login'] ) ? $args['login'] : ''; ?>" />
+		<input type="hidden" name="reset_key" value="<?php echo isset( $args['key'] ) ? esc_attr( $args['key'] ) : ''; ?>" />
+		<input type="hidden" name="reset_login" value="<?php echo isset( $args['login'] ) ? esc_attr( $args['login'] ) : ''; ?>" />
 
 	<?php endif; ?>
 
