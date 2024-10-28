@@ -91,7 +91,7 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 		if ( $recaptcha_theme == 'custom' ) {
 			?><script type="text/javascript">
 			var RecaptchaOptions = {
-				theme : '<?php echo $recaptcha_theme ?>',
+				theme : '<?php echo esc_js( $recaptcha_theme ) ?>',
 				custom_theme_widget: 'recaptcha_widget'
 			};
 			</script><?php
@@ -101,9 +101,9 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 <?php
 			$language_code = apply_filters( 'wp_recaptcha_language' , WP_reCaptcha::instance()->get_option( 'recaptcha_language' ) );
 			if ( $language_code ) { ?>
-				lang : '<?php echo $language_code ?>',
+				lang : '<?php echo esc_js($language_code) ?>',
 <?php		} ?>
-				theme : '<?php echo $recaptcha_theme ?>'
+				theme : '<?php echo esc_js($recaptcha_theme) ?>'
 				
 			};
 			</script><?php

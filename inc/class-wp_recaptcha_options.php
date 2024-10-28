@@ -156,7 +156,7 @@ class WP_reCaptcha_Options {
 		?><div class="notice error above-h1"><p><?php
 			printf(
 				__( '<strong>reCaptcha needs your attention:</strong> To make it work You need to enter an api key. <br />You can do so at the <a href="%s">reCaptcha settings page</a>.' , 'wp-recaptcha-integration' ),
-				admin_url( add_query_arg( 'page' , 'recaptcha' , 'options-general.php' ) )
+				esc_url( admin_url( add_query_arg( 'page' , 'recaptcha' , 'options-general.php' ) ) )
 			);
 		?></p></div><?php
 	}
@@ -388,8 +388,8 @@ class WP_reCaptcha_Options {
 				$init_test_url = add_query_arg( array('_wpnonce' => $nonce , 'action' => $action ) , admin_url( 'admin-ajax.php' ) );
 
 				?><p class="submit"><?php
-					?><a class="button" href="<?php echo $new_url ?>"><?php _e('New API Key' , 'wp-recaptcha-integration') ?></a><?php
-					?><a id="test-api-key" class="button" data-init-href="<?php echo $init_test_url ?>" href="<?php echo $test_url ?>"><?php _e('Test API Key' , 'wp-recaptcha-integration') ?></a><?php
+					?><a class="button" href="<?php echo esc_url( $new_url ); ?>"><?php _e('New API Key' , 'wp-recaptcha-integration') ?></a><?php
+					?><a id="test-api-key" class="button" data-init-href="<?php echo esc_url( $init_test_url ) ?>" href="<?php echo esc_url( $test_url ) ?>"><?php _e('Test API Key' , 'wp-recaptcha-integration') ?></a><?php
 				?></p><?php
 			?></div><?php
 		}
@@ -487,7 +487,7 @@ class WP_reCaptcha_Options {
 	 */
 	public function cancel_enter_api_key() {
 		$url = $this->remove_new_apikey_url( add_query_arg(null,null) );
-		?><a class="button" href="<?php echo $url ?>"><?php _e( 'Cancel' ) ?></a><?php
+		?><a class="button" href="<?php echo esc_url( $url ) ?>"><?php _e( 'Cancel' ) ?></a><?php
 	}
 
 	/**
@@ -509,10 +509,10 @@ class WP_reCaptcha_Options {
 		$option = WP_reCaptcha::instance()->get_option( $name );
 		foreach ( $items as $item ) {
 			extract( $item ); // value, label
-			?><label for="<?php echo "$name-$value" ?>"><?php
-				?><input id="<?php echo "$name-$value" ?>" type="radio" name="<?php echo $name ?>" value="<?php echo $value ?>" <?php checked($value,$option,true) ?> />
+			?><label for="<?php echo esc_attr( "$name-$value" ) ?>"><?php
+				?><input id="<?php echo esc_attr( "$name-$value" ) ?>" type="radio" name="<?php echo esc_attr( $name ) ?>" value="<?php echo esc_attr( $value ) ?>" <?php checked($value,$option,true) ?> />
 				<?php
-				echo $label;
+				echo esc_html( $label );
 			?></label><br /><?php
 		}
 	}
@@ -534,14 +534,15 @@ class WP_reCaptcha_Options {
 		));
 		extract($args);
 		$value = WP_reCaptcha::instance()->get_option( $name );
-		$class_attr = $class ? "class=\"{$class}\"" : '';
-		?><label <?php echo $class_attr ?> for="<?php echo $name ?>"><?php
-			?><input type="hidden" name="<?php echo $name ?>" value="0" /><?php
-			?><input id="<?php echo $name ?>" type="checkbox" name="<?php echo $name ?>" value="1" <?php checked($value,1,true) ?> />
+		$class_attr = $class ? 'class="' . esc_attr( $class ) . '"' : '';
+
+		?><label <?php echo $class_attr ?> for="<?php echo esc_attr( $name ) ?>"><?php
+			?><input type="hidden" name="<?php echo esc_attr( $name ) ?>" value="0" /><?php
+			?><input id="<?php echo esc_attr( $name ) ?>" type="checkbox" name="<?php echo esc_attr( $name ) ?>" value="1" <?php checked($value,1,true) ?> />
 			<?php
-			echo $label;
+			echo esc_html( $label );
 			if ( $description ) {
-				?><p class="description"><?php echo $description ?></p><?php
+				?><p class="description"><?php echo wp_kses_post( $description ) ?></p><?php
 			}
 		?></label><?php
 	}
@@ -565,12 +566,12 @@ class WP_reCaptcha_Options {
 		extract($args);
 		$value = WP_reCaptcha::instance()->get_option( $name );
 
-		?><div class="recaptcha-onoff <?php echo $class ?>"><?php
-			?><input type="hidden" name="<?php echo $name ?>" value="0" /><?php
-			?><input id="<?php echo $name ?>" type="checkbox" name="<?php echo $name ?>" value="1" <?php checked($value,1,true) ?> /><?php
+		?><div class="recaptcha-onoff <?php echo esc_attr( $class ) ?>"><?php
+			?><input type="hidden" name="<?php echo esc_attr( $name ) ?>" value="0" /><?php
+			?><input id="<?php echo esc_attr( $name ) ?>" type="checkbox" name="<?php echo esc_attr( $name )?>" value="1" <?php checked($value,1,true) ?> /><?php
 			?><label for="<?php echo $name ?>"><?php
 				?><span class="dashicons dashicons-lock"></span><?php
-				?><span class="title"><?php echo $label ?></span><?php
+				?><span class="title"><?php echo esc_html( $label ) ?></span><?php
 			?></label><?php
 		?></div><?php
 	}
@@ -591,7 +592,7 @@ class WP_reCaptcha_Options {
 	public function secret_input_text( $args ) {
 		extract( $args );
 		$value = WP_reCaptcha::instance()->get_option( $name );
-		?><input type="text" class="regular-text ltr" name="<?php echo $name ?>" value="<?php //echo $value ?>" /><?php
+		?><input type="text" class="regular-text ltr" name="<?php echo esc_attr( $name ) ?>" value="<?php //echo $value ?>" /><?php
 	}
 	/**
 	 *	Selector for recaptcha theme
@@ -606,14 +607,14 @@ class WP_reCaptcha_Options {
 			'grecaptcha'	=>	WP_reCaptcha_NoCaptcha::instance()->get_supported_languages(),
 		);
 
-		?><div class="recaptcha-select-language flavor-<?php echo $option_flavor ?>"><?php
+		?><div class="recaptcha-select-language flavor-<?php echo esc_attr( $option_flavor ) ?>"><?php
 			foreach( $all_available_langs as $flavor => $available_langs ) {
-				?><select class="flavor-<?php echo $flavor ?>" name="<?php echo $option_name ?>[<?php echo $flavor ?>]"><?php
+				?><select class="flavor-<?php echo esc_attr( $flavor ) ?>" name="<?php echo esc_attr( $option_name ) ?>[<?php echo esc_attr( $flavor ) ?>]"><?php
 					?><option <?php selected($option_value,'',true); ?> value=""><?php _e( 'Automatic','wp-recaptcha-integration' ); ?></option><?php
 					?><option <?php selected($option_value,'WPLANG',true); ?> value="WPLANG"><?php _e( 'Site Language' ); ?></option><?php
 					?><optgroup label="<?php _e('Other','wp-recaptcha-integration' ) ?>"><?php
 					foreach ( $available_langs as $lang => $lang_name ) {
-						?><option <?php selected($option_value,$lang,true); ?> value="<?php echo $lang; ?>"><?php _e( $lang_name ); ?></option><?php
+						?><option <?php selected($option_value,$lang,true); ?> value="<?php echo esc_attr( $lang ); ?>"><?php echo esc_html( $lang_name ); ?></option><?php
 					}
 					?></optgroup><?php
 				?></select><?php
@@ -641,11 +642,11 @@ class WP_reCaptcha_Options {
 
 		foreach ( $themes as $value => $theme ) {
 			extract( $theme ); // label, flavor
-			?><div class="theme-item flavor-<?php echo $flavor ?>"><?php
-				?><input <?php checked($value,$option_theme,true); ?> id="<?php echo "$option_name-$value" ?>" type="radio" name="<?php echo $option_name ?>" value="<?php echo $value ?>" /><?php
-				?><label for="<?php echo "$option_name-$value" ?>"><?php
+			?><div class="theme-item flavor-<?php echo esc_attr( $flavor ) ?>"><?php
+				?><input <?php checked($value,$option_theme,true); ?> id="<?php echo esc_attr( "$option_name-$value" ) ?>" type="radio" name="<?php echo esc_attr( $option_name ) ?>" value="<?php echo esc_attr( $value ) ?>" /><?php
+				?><label for="<?php echo esc_attr( "$option_name-$value" ) ?>"><?php
 					?><span class="title"><?php
-						echo $label;
+						echo esc_html( $label );
 					?></span><?php
 					if ( $value == 'custom' ) {
 						?><span class="visual"><?php
@@ -653,7 +654,7 @@ class WP_reCaptcha_Options {
 						?></span><?php
 					} else {
 						$src = plugins_url( "images/{$flavor}-theme-{$value}.png" , dirname(__FILE__));
-						printf( '<img src="%s" alt="%s" />' , $src , $label );
+						printf( '<img src="%s" alt="%s" />' , esc_url( $src ), esc_html( $label ) );
 					}
 				?></label><?php
 			?></div><?php

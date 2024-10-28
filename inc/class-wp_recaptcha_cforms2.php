@@ -51,7 +51,7 @@ class WP_reCaptcha_cforms2 extends cforms2_captcha {
 	public function get_request($input_id, $input_classes, $input_title) {
 		$wp_recaptcha = WP_reCaptcha::instance();
 		$request = $wp_recaptcha->begin_inject(true);
- 		$request.= $wp_recaptcha->recaptcha_html( $attr );
+ 		$request.= $wp_recaptcha->recaptcha_html(  );
 		$request.= $wp_recaptcha->end_inject(true);
 		return $request;
 	}
