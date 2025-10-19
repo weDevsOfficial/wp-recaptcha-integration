@@ -2,8 +2,8 @@ WordPress reCaptcha Integration
 ===============================
 
 
-This is the official github repository of the [WP reCaptcha integration plugin](https://wordpress.org/plugins/wp-recaptcha-integration/)
-plugin. This repo might contain untested and possibly unstable or insecure code. So use it on your own risk.
+This is the official github repository of the [WP reCaptcha integration plugin](https://wordpress.org/plugins/wp-recaptcha-integration/).
+This repo might contain untested and possibly unstable or insecure code. So use it on your own risk.
 
 Features
 --------
