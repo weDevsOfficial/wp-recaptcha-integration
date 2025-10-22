@@ -182,8 +182,8 @@ class WP_reCaptcha_Options {
 		}
 		if ( $this->enter_api_key ) {
 			// no API Key. Let the user enter it.
-			register_setting( 'recaptcha_options', 'recaptcha_publickey' , 'trim' );
-			register_setting( 'recaptcha_options', 'recaptcha_privatekey' , 'trim' );
+			register_setting( 'recaptcha_options', 'recaptcha_publickey' , 'sanitize_text_field' );
+			register_setting( 'recaptcha_options', 'recaptcha_privatekey' , 'sanitize_text_field' );
 			add_settings_field('recaptcha_publickey', __('Site key','wp-recaptcha-integration'), array(&$this,'secret_input_text'), 'recaptcha', 'recaptcha_apikey' , array('name'=>'recaptcha_publickey') );
 			add_settings_field('recaptcha_privatekey', __('Secret key','wp-recaptcha-integration'), array(&$this,'secret_input_text'), 'recaptcha', 'recaptcha_apikey', array('name'=>'recaptcha_privatekey'));
 			if ( $has_api_key ) {
