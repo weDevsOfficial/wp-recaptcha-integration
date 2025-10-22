@@ -572,8 +572,8 @@ class WP_reCaptcha {
 			if ( $wpcf7_options = get_option('wpcf7') ) {
 				if ( isset( $wpcf7_options['recaptcha'] ) && !self::instance()->has_api_key() ) {
 					foreach ( $wpcf7_options['recaptcha'] as $sitekey => $secretkey ) {
-						update_option('recaptcha_publickey',$sitekey);
-						update_option('recaptcha_privatekey',$secretkey);
+                        update_option('recaptcha_publickey', sanitize_text_field($sitekey));
+                        update_option('recaptcha_privatekey', sanitize_text_field($secretkey));
 						break;
 					}
 				}
