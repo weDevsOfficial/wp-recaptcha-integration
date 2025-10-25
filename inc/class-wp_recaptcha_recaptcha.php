@@ -192,9 +192,9 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 			$return .= '<div><a href="javascript:Recaptcha.showhelp()">Help</a></div>';
 		$return .= '</div>';
 
-		$return .= sprintf('<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=%s"></script>',$public_key);
+		$return .= sprintf('<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=%s"></script>', esc_attr( $public_key ));
 		$return .= '<noscript>';
-			$return .= sprintf('<iframe src="http://www.google.com/recaptcha/api/noscript?k=%s" height="300" width="500" frameborder="0"></iframe><br>',$public_key);
+			$return .= sprintf('<iframe src="http://www.google.com/recaptcha/api/noscript?k=%s" height="300" width="500" frameborder="0"></iframe><br>', esc_attr( $public_key ));
 			$return .= '<textarea name="recaptcha_challenge_field" rows="3" cols="40">';
 			$return .= '</textarea>';
 			$return .= '<input type="hidden" name="recaptcha_response_field" value="manual_challenge">';

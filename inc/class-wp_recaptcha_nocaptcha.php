@@ -186,8 +186,8 @@ class WP_reCaptcha_NoCaptcha extends WP_reCaptcha_Captcha {
 					// check if captcha element is unrendered
 					if ( ! el.childNodes.length) {
 						wid = grecaptcha.render(el,{
-							'sitekey':'<?php echo $sitekey ?>',
-							'theme':el.getAttribute('data-theme') || '<?php echo WP_reCaptcha::instance()->get_option('recaptcha_theme'); ?>'
+							'sitekey':'<?php echo esc_js( $sitekey ) ?>',
+							'theme':el.getAttribute('data-theme') || '<?php echo esc_js( WP_reCaptcha::instance()->get_option('recaptcha_theme') ) ?>'
 <?php if ( WP_reCaptcha::instance()->get_option( 'recaptcha_disable_submit' ) ) {
 ?>							,
 							'callback' : function(r){ get_form_submits(el).setEnabled(true); /* enable submit buttons */ }
@@ -205,7 +205,7 @@ class WP_reCaptcha_NoCaptcha extends WP_reCaptcha_Captcha {
 		// if jquery present re-render jquery/ajax loaded captcha elements
 		if ( typeof jQuery !== 'undefined' )
 			jQuery(document).ajaxComplete( function(evt,xhr,set){
-				if( xhr.responseText && xhr.responseText.indexOf('<?php echo $sitekey ?>') !== -1)
+				if( xhr.responseText && xhr.responseText.indexOf('<?php echo esc_js( $sitekey ) ?>') !== -1)
 					wp_recaptchaLoadCallback();
 			} );
 
