@@ -17,7 +17,7 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 		'es' =>	'Spanish',
 		'tr' =>	'Turkish',
 	);
-	
+
 
 	/**
 	 *	Holding the singleton instance
@@ -50,7 +50,7 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 		if ( ! function_exists( 'recaptcha_get_html' ) )
 			require_once dirname(__FILE__).'/recaptchalib.php';
 	}
-	
+
 	/**
 	 * @inheritdoc
 	 */
@@ -104,7 +104,7 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 				lang : '<?php echo esc_js($language_code) ?>',
 <?php		} ?>
 				theme : '<?php echo esc_js($recaptcha_theme) ?>'
-				
+
 			};
 			</script><?php
 			?><style type="text/css">
@@ -118,7 +118,7 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 	 * @inheritdoc
 	 */
 	public function print_foot() {
-		if ( WP_reCaptcha::instance()->get_option( 'recaptcha_disable_submit' ) ) { 
+		if ( WP_reCaptcha::instance()->get_option( 'recaptcha_disable_submit' ) ) {
 
 			?><script type="text/javascript">
 			document.addEventListener('keyup',function(e){
@@ -141,7 +141,7 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 		$public_key = WP_reCaptcha::instance()->get_option( 'recaptcha_publickey' );
 		$recaptcha_theme = WP_reCaptcha::instance()->get_option('recaptcha_theme');
 
-		if ($recaptcha_theme == 'custom') 
+		if ($recaptcha_theme == 'custom')
 			$return = $this->get_custom_html( $public_key );
 		else
 			$return = recaptcha_get_html( $public_key, $this->last_error );
@@ -167,14 +167,14 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 		do_action( 'wp_recaptcha_checked' , $this->_last_result->is_valid );
 		return $this->_last_result->is_valid;
 	}
-	
+
 
 	/**
 	 *	Get un-themed old style recaptcha HTML.
 	 *	@return string recaptcha html
 	 */
 	private function get_custom_html( $public_key ) {
-		
+
 		$return = '<div id="recaptcha_widget" style="display:none">';
 
 			$return .= '<div id="recaptcha_image"></div>';
@@ -192,17 +192,17 @@ class WP_reCaptcha_ReCaptcha extends WP_reCaptcha_Captcha {
 			$return .= '<div><a href="javascript:Recaptcha.showhelp()">Help</a></div>';
 		$return .= '</div>';
 
-		$return .= sprintf('<script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=%s"></script>',$public_key);
+		$return .= sprintf('<script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k=%s"></script>', esc_attr( $public_key ));
 		$return .= '<noscript>';
-			$return .= sprintf('<iframe src="http://www.google.com/recaptcha/api/noscript?k=%s" height="300" width="500" frameborder="0"></iframe><br>',$public_key);
+			$return .= sprintf('<iframe src="https://www.google.com/recaptcha/api/noscript?k=%s" height="300" width="500" frameborder="0"></iframe><br>', esc_attr( $public_key ));
 			$return .= '<textarea name="recaptcha_challenge_field" rows="3" cols="40">';
 			$return .= '</textarea>';
 			$return .= '<input type="hidden" name="recaptcha_response_field" value="manual_challenge">';
 		$return .= '</noscript>';
-		
+
 		return $return;
  	}
-	
+
 
 
 }
