@@ -258,7 +258,7 @@ Since late 2015 WordPress.org offers a plugin translation API. Just use the
 
 == Changelog ==
 
-= v1.2.7 (22 October, 2025) =
+= v1.2.8 (29 October, 2025) =
 
  - Fixed potential XSS vulnerability.
  - Added https for recaptcha API URL.
