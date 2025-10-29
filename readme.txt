@@ -4,7 +4,7 @@ Donate link: https://tareq.co/donate/
 Tags: security, captcha, recaptcha, no captcha, login, signup, contact form 7, ninja forms, woocommerce
 Requires at least: 3.8
 Tested up to: 6.8
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -257,6 +257,11 @@ Since late 2015 WordPress.org offers a plugin translation API. Just use the
 
 
 == Changelog ==
+
+= v1.2.7 (22 October, 2025) =
+
+ - Fixed potential XSS vulnerability.
+ - Added https for recaptcha API URL.
 
 = v1.2.7 (22 October, 2025) =
 
